@@ -1,0 +1,40 @@
+.Loading {
+  $sizeWidth: 40px;
+  width: $sizeWidth * 2;
+  position: relative;
+  margin: 100px auto 0;
+
+  & > * {
+    position: absolute;
+    width: 0;
+    height: 0;
+  }
+
+  .arrow-up {
+    border-left: $sizeWidth solid transparent;
+    border-right: $sizeWidth solid transparent;
+    border-bottom: $sizeWidth solid $orange;
+    top: $sizeWidth;
+  }
+
+  .arrow-down {
+    border-left: $sizeWidth solid transparent;
+    border-right: $sizeWidth solid transparent;
+    border-top: $sizeWidth solid $red;
+    top: 0;
+  }
+
+  .arrow-right {
+    border-top: $sizeWidth solid transparent;
+    border-bottom: $sizeWidth solid transparent;
+    border-left: $sizeWidth solid $green;
+    left: 0;
+  }
+
+  .arrow-left {
+    border-top: $sizeWidth solid transparent;
+    border-bottom: $sizeWidth solid transparent;
+    border-right: $sizeWidth solid $blue;
+    right: 0;
+  }
+}

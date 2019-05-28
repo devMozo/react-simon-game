@@ -1,0 +1,37 @@
+@mixin font-face($family, $filename) {
+  @font-face {
+    font-family: $family;
+    src: url('#{$filename}.ttf') format('truetype');
+  }
+}
+
+@mixin generateSequentialProperty($property, $from, $to, $side) {
+  @for $i from $from to $to {
+    .#{$property}-#{$i}-#{$side} {
+      @if $side == 'y' {
+        #{$property}-top: #{$i}rem !important;
+        #{$property}-bottom: #{$i}rem !important;
+      } @else if $side == 'x' {
+        #{$property}-left: #{$i}rem !important;
+        #{$property}-right: #{$i}rem !important;
+      } @else if $side == 'all' {
+        #{$property}: #{$i}rem !important;
+      } @else {
+        #{$property}-#{$side}: #{$i}rem !important;
+      }
+    }
+    .#{$property}-#{$i}_5-#{$side} {
+      @if $side == 'y' {
+        #{$property}-top: #{$i + '.5'}rem !important;
+        #{$property}-bottom: #{$i + '.5'}rem !important;
+      } @else if $side == 'x' {
+        #{$property}-left: #{$i + '.5'}rem !important;
+        #{$property}-right: #{$i + '.5'}rem !important;
+      } @else if $side == 'all' {
+        #{$property}: #{$i + '.5'}rem !important;
+      } @else {
+        #{$property}-#{$side}: #{$i + '.5'}rem !important;
+      }
+    }
+  }
+}

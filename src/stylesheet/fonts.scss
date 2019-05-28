@@ -1,0 +1,49 @@
+@include font-face('Montserrat-Black', './fonts/Montserrat-Black');
+@include font-face('Montserrat-BlackItalic', './fonts/Montserrat-BlackItalic');
+@include font-face('Montserrat-Bold', './fonts/Montserrat-Bold');
+@include font-face('Montserrat-BoldItalic', './fonts/Montserrat-BoldItalic');
+@include font-face('Montserrat-ExtraBold', './fonts/Montserrat-ExtraBold');
+@include font-face(
+  'Montserrat-ExtraBoldItalic',
+  './fonts/Montserrat-ExtraBoldItalic'
+);
+@include font-face('Montserrat-ExtraLight', './fonts/Montserrat-ExtraLight');
+@include font-face(
+  'Montserrat-ExtraLightItalic',
+  './fonts/Montserrat-ExtraLightItalic'
+);
+@include font-face('Montserrat-Italic', './fonts/Montserrat-Italic');
+@include font-face('Montserrat-Light', './fonts/Montserrat-Light');
+@include font-face('Montserrat-LightItalic', './fonts/Montserrat-LightItalic');
+@include font-face('Montserrat-Medium', './fonts/Montserrat-Medium');
+@include font-face(
+  'Montserrat-MediumItalic',
+  './fonts/Montserrat-MediumItalic'
+);
+@include font-face('Montserrat-Regular', './fonts/Montserrat-Regular');
+@include font-face('Montserrat-SemiBold', './fonts/Montserrat-SemiBold');
+@include font-face(
+  'Montserrat-SemiBoldItalic',
+  './fonts/Montserrat-SemiBoldItalic'
+);
+@include font-face('Montserrat-Thin', './fonts/Montserrat-Thin');
+@include font-face('Montserrat-ThinItalic', './fonts/Montserrat-ThinItalic');
+
+$fontBlack: 'Montserrat-Black';
+$fontBlackItalic: 'Montserrat-BlackItalic';
+$fontBold: 'Montserrat-Bold';
+$fontBoldItalic: 'Montserrat-BoldItalic';
+$fontExtraBold: 'Montserrat-ExtraBold';
+$fontExtraBoldItalic: 'Montserrat-ExtraBoldItalic';
+$fontExtraLight: 'Montserrat-ExtraLight';
+$fontExtraLightItalic: 'Montserrat-ExtraLightItalic';
+$fontItalic: 'Montserrat-Italic';
+$fontLight: 'Montserrat-Light';
+$fontLightItalic: 'Montserrat-LightItalic';
+$fontMedium: 'Montserrat-Medium';
+$fontMediumItalic: 'Montserrat-MediumItalic';
+$fontRegular: 'Montserrat-Regular';
+$fontSemiBold: 'Montserrat-SemiBold';
+$fontSemiBoldItalic: 'Montserrat-SemiBoldItalic';
+$fontThin: 'Montserrat-Thin';
+$fontThinItalic: 'Montserrat-ThinItalic';

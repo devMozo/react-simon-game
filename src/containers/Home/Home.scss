@@ -1,0 +1,18 @@
+.Home {
+  text-align: center;
+  background-color: black;
+  height: 100vh;
+  overflow: hidden;
+
+  .Home__title {
+    font-size: 20px;
+    color: white;
+  }
+
+  .Home__button-start {
+    border: 0;
+    outline: 0;
+    background-color: white;
+    cursor: pointer;
+  }
+}

@@ -1,0 +1,150 @@
+@import './stylesheet/mixins.scss';
+@import './stylesheet/fonts.scss';
+@import './stylesheet/variables.scss';
+
+// Components
+@import './components/Loading/Loading.scss';
+
+// Containers
+@import './containers/Home/Home.scss';
+@import './containers/Game/Game.scss';
+
+body {
+  margin: 0;
+}
+
+#app {
+  width: 100%;
+  min-height: 100vh;
+}
+
+a {
+  text-decoration: none;
+}
+
+@include generateSequentialProperty('padding', 0, 20, 'left');
+@include generateSequentialProperty('padding', 0, 20, 'right');
+@include generateSequentialProperty('padding', 0, 20, 'top');
+@include generateSequentialProperty('padding', 0, 20, 'bottom');
+@include generateSequentialProperty('padding', 0, 20, 'y');
+@include generateSequentialProperty('padding', 0, 20, 'x');
+@include generateSequentialProperty('padding', 0, 20, 'all');
+
+@include generateSequentialProperty('margin', 0, 20, 'left');
+@include generateSequentialProperty('margin', 0, 20, 'right');
+@include generateSequentialProperty('margin', 0, 20, 'top');
+@include generateSequentialProperty('margin', 0, 20, 'bottom');
+@include generateSequentialProperty('margin', 0, 20, 'y');
+@include generateSequentialProperty('margin', 0, 20, 'x');
+@include generateSequentialProperty('margin', 0, 20, 'all');
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $fontBold;
+  text-transform: capitalize;
+}
+
+p {
+  font-family: $fontRegular !important;
+  font-size: 1rem;
+}
+
+li {
+  list-style: none !important;
+}
+
+.font-black {
+  font-family: $fontBlack !important;
+}
+
+.font-black-italic {
+  font-family: $fontBlackItalic !important;
+}
+
+.font-bold {
+  font-family: $fontBold !important;
+}
+
+.font-bold-italic {
+  font-family: $fontBoldItalic !important;
+}
+
+.font-extra-bold {
+  font-family: $fontExtraBold !important;
+}
+
+.font-extra-bold-italic {
+  font-family: $fontExtraBoldItalic !important;
+}
+
+.font-extra-light {
+  font-family: $fontExtraLight !important;
+}
+
+.font-extra-light-italic {
+  font-family: $fontExtraLightItalic !important;
+}
+
+.font-italic {
+  font-family: $fontItalic !important;
+}
+
+.font-light {
+  font-family: $fontLight !important;
+}
+
+.font-light-italic {
+  font-family: $fontLightItalic !important;
+}
+
+.font-medium {
+  font-family: $fontMedium !important;
+}
+
+.font-medium-italic {
+  font-family: $fontMediumItalic !important;
+}
+
+.font-regular {
+  font-family: $fontRegular !important;
+}
+
+.font-semi-bold {
+  font-family: $fontSemiBold !important;
+}
+
+.font-semi-bold-italic {
+  font-family: $fontSemiBoldItalic !important;
+}
+
+.font-thin {
+  font-family: $fontThin !important;
+}
+
+.font-thin-italic {
+  font-family: $fontThinItalic !important;
+}
+
+.font-color-red {
+  color: $red !important;
+}
+
+.font-color-orange {
+  color: $orange !important;
+}
+
+.font-color-whiteOrange {
+  color: $whiteOrange !important;
+}
+
+.font-color-green {
+  color: $green !important;
+}
+
+.font-color-blue {
+  color: $blue !important;
+}
