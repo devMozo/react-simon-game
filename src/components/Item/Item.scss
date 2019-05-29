@@ -31,7 +31,7 @@
     transition: 0.3s;
 
     &.animated {
-      box-shadow: 0 -110px 100px -70px;
+      box-shadow: 0 -150px 100px -70px;
     }
   }
 
@@ -43,7 +43,7 @@
       transition: 0.3s;
 
       &.animated {
-        box-shadow: 0 110px 100px -70px;
+        box-shadow: 0 150px 100px -70px;
       }
     }
 

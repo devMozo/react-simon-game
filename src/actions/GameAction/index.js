@@ -17,6 +17,7 @@ export const fetchItems = () => {
     PokeAPI(ITEMS_LIMIT)
       .then(data => {
         dispatch(receiveDataItems(data))
+        dispatch(sequencyAdd())
       })
       .catch(err => dispatch(errorReceiveDataItems(err)))
   }
@@ -41,9 +42,8 @@ export const isLoading = status => ({
   payload: status
 })
 
-export const sequencyAdd = item => ({
-  type: GAME_ACTION_SEQUENCY_ADD,
-  payload: item
+export const sequencyAdd = () => ({
+  type: GAME_ACTION_SEQUENCY_ADD
 })
 
 export const gameOver = () => ({

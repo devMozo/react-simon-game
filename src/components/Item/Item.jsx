@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import posed from 'react-pose'
+import GameContext from '../../contexts/GameContext'
 
 const AnimationListItems = posed.div({
   zoomIn: {
@@ -35,24 +36,36 @@ class Item extends React.PureComponent {
     const { animated } = this.state
 
     return (
-      <li
-        onMouseOver={() => this.setState({ animated: true })}
-        onMouseOut={() => this.setState({ animated: false })}
-        className={`Item${inverted ? '--inverted' : ''} ${className}`}
-      >
-        <AnimationListItems pose={animated ? 'zoomIn' : 'normal'}>
-          <div className={`Item__shape ${animated ? 'animated' : ''}`} />
-        </AnimationListItems>
-        <AnimationName pose={animated ? 'displayed' : 'hidden'}>
-          <p className='Item__name font-bold font-capitalize'>
-            {' '}
-            {item.getName()}{' '}
-          </p>
-        </AnimationName>
-      </li>
+      <GameContext.Consumer>
+        {({ activeItemID, freezed }) => {
+          const isAnimated = animated || activeItemID === item.getID()
+
+          return (
+            <li
+              onMouseOver={() => !freezed && this.setState({ animated: true })}
+              onMouseOut={() => !freezed && this.setState({ animated: false })}
+              className={`Item${inverted ? '--inverted' : ''} ${className}`}
+            >
+              <AnimationListItems pose={isAnimated ? 'zoomIn' : 'normal'}>
+                <div
+                  className={`Item__shape ${isAnimated ? 'animated' : ''}`}
+                />
+              </AnimationListItems>
+              <AnimationName pose={isAnimated ? 'displayed' : 'hidden'}>
+                <p className='Item__name font-bold font-capitalize'>
+                  {' '}
+                  {item.getName()}{' '}
+                </p>
+              </AnimationName>
+            </li>
+          )
+        }}
+      </GameContext.Consumer>
     )
   }
 }
+
+Item.contextType = GameContext
 
 Item.propTypes = {
   inverted: PropTypes.bool,

@@ -7,6 +7,7 @@ import {
   GAME_ACTION_RESTART_ERRORS,
   GAME_ACTION_SET_LOADING
 } from '../../actions/GameAction/index'
+import { ITEMS_LIMIT } from '../../constants/rules'
 
 const initState = {
   items: [],
@@ -39,9 +40,13 @@ export default (state = initState, action) => {
       }
       break
     case GAME_ACTION_SEQUENCY_ADD:
+      const limit =
+        state.items.length === ITEMS_LIMIT ? ITEMS_LIMIT : state.items.length
+      const randomPosition = Math.floor(Math.random() * limit)
+
       state = {
         ...state,
-        sequency: [...state.sequency, action.payload]
+        sequency: [...state.sequency, state.items[randomPosition]]
       }
       break
     case GAME_ACTION_GAME_OVER:

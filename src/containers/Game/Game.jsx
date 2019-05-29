@@ -4,8 +4,15 @@ import Loading from '../../components/Loading/Loading'
 import ListItems from '../../components/ListItems/ListItems'
 import ErrorFetch from '../../components/ErrorFetch/ErrorFetch'
 import { connect } from 'react-redux'
-import { fetchItems } from '../../actions/GameAction/index'
+import {
+  fetchItems,
+  sequencyAdd,
+  gameWin
+} from '../../actions/GameAction/index'
+import GameContext from '../../contexts/GameContext'
+import { TIME_PER_ROUND, MAX_ROUNDS } from '../../constants/rules'
 
+const STOP_ANIMATION = 'STOP_ANIMATION'
 const AnimationListItems = posed.div({
   hidden: {
     scaleX: 1.2,
@@ -29,6 +36,52 @@ const AnimationFade = posed.div({
 })
 
 class Game extends React.PureComponent {
+  constructor (props) {
+    super(props)
+    this.state = {
+      activeItemID: undefined,
+      freezed: false,
+      userTime: false
+    }
+  }
+
+  * generatorItems () {
+    const { sequency } = this.props
+    let i = 0
+
+    while (i < sequency.length) {
+      if (i > 0 && sequency[i].getID() === sequency[i - 1].getID()) {
+        yield STOP_ANIMATION
+      }
+
+      yield sequency[i]
+      i++
+    }
+  }
+
+  startRound () {
+    const { sequencyAdd } = this.props
+    const items = this.generatorItems()
+
+    let round = setInterval(() => {
+      const value = items.next().value
+
+      if (value) {
+        this.setState({
+          activeItemID: value === STOP_ANIMATION ? undefined : value.getID()
+        })
+      } else {
+        clearInterval(round)
+        sequencyAdd()
+        this.setState({
+          activeItemID: undefined,
+          freezed: false,
+          userTime: true
+        })
+      }
+    }, TIME_PER_ROUND)
+  }
+
   getItems () {
     this.props.fetchItems()
   }
@@ -38,17 +91,25 @@ class Game extends React.PureComponent {
   }
 
   componentDidUpdate () {
-    const { items } = this.props
+    const { done, items, sequency, gameWin } = this.props
+    const { freezed, userTime } = this.state
 
-    if (items.length > 0) {
+    if (!done && !freezed && !userTime && items.length > 0) {
       this.setState({
-        loading: false
+        freezed: true
       })
+
+      if (sequency.length <= MAX_ROUNDS) {
+        this.startRound()
+      } else {
+        gameWin()
+      }
     }
   }
 
   render () {
     const { items, errors, loading } = this.props
+    const { activeItemID, freezed, userTime } = this.state
 
     return (
       <section className='Game'>
@@ -62,8 +123,21 @@ class Game extends React.PureComponent {
           <Loading />
         </AnimationFade>
         <AnimationListItems pose={loading ? 'hidden' : 'visible'}>
-          <ListItems items={items} />
+          <GameContext.Provider
+            value={{
+              activeItemID,
+              freezed
+            }}
+          >
+            <ListItems items={items} />
+          </GameContext.Provider>
         </AnimationListItems>
+        {userTime && (
+          <p className='Game__help margin-3-top font-extra-light'>
+            {' '}
+            Your turn{' '}
+          </p>
+        )}
       </section>
     )
   }
@@ -79,6 +153,12 @@ const mapDispatchToProps = dispatch => {
   return {
     fetchItems: () => {
       dispatch(fetchItems())
+    },
+    sequencyAdd: () => {
+      dispatch(sequencyAdd())
+    },
+    gameWin: () => {
+      dispatch(gameWin())
     }
   }
 }
