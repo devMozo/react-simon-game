@@ -1,0 +1,26 @@
+.ListItems {
+  .Item:nth-child(1) .Item__shape,
+  .Item--inverted:nth-child(1) .Item__shape {
+    color: $violet;
+  }
+
+  .Item:nth-child(2) .Item__shape,
+  .Item--inverted:nth-child(2) .Item__shape {
+    color: $red;
+  }
+
+  .Item:nth-child(3) .Item__shape,
+  .Item--inverted:nth-child(3) .Item__shape {
+    color: $orange;
+  }
+
+  .Item:nth-child(4) .Item__shape,
+  .Item--inverted:nth-child(4) .Item__shape {
+    color: $green;
+  }
+
+  .Item:nth-child(5) .Item__shape,
+  .Item--inverted:nth-child(5) .Item__shape {
+    color: $blue;
+  }
+}

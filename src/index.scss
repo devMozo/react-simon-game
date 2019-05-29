@@ -4,6 +4,8 @@
 
 // Components
 @import './components/Loading/Loading.scss';
+@import './components/Item/Item.scss';
+@import './components/ListItems/ListItems.scss';
 
 // Containers
 @import './containers/Home/Home.scss';
@@ -138,7 +140,7 @@ li {
 }
 
 .font-color-whiteOrange {
-  color: $whiteOrange !important;
+  color: $violet !important;
 }
 
 .font-color-green {

@@ -15,13 +15,7 @@
     border-right: $sizeWidth solid transparent;
     border-bottom: $sizeWidth solid $orange;
     top: $sizeWidth;
-  }
-
-  .arrow-down {
-    border-left: $sizeWidth solid transparent;
-    border-right: $sizeWidth solid transparent;
-    border-top: $sizeWidth solid $red;
-    top: 0;
+    animation: fadeOut 1s ease 0s infinite;
   }
 
   .arrow-right {
@@ -29,6 +23,15 @@
     border-bottom: $sizeWidth solid transparent;
     border-left: $sizeWidth solid $green;
     left: 0;
+    animation: fadeOut 1s ease 0.2s infinite;
+  }
+
+  .arrow-down {
+    border-left: $sizeWidth solid transparent;
+    border-right: $sizeWidth solid transparent;
+    border-top: $sizeWidth solid $red;
+    top: 0;
+    animation: fadeOut 1s ease 0.4s infinite;
   }
 
   .arrow-left {
@@ -36,5 +39,20 @@
     border-bottom: $sizeWidth solid transparent;
     border-right: $sizeWidth solid $blue;
     right: 0;
+    animation: fadeOut 1s ease 0.6s infinite;
+  }
+
+  @keyframes fadeOut {
+    0% {
+      opacity: 1;
+    }
+
+    50% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+    }
   }
 }
