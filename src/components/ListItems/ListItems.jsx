@@ -5,7 +5,7 @@ export default ({ items, className = '' }) => {
   let inverted = false
 
   return (
-    <ul className={`ListItems full-width ${className}`}>
+    <ul className={`ListItems padding-0-x full-width ${className}`}>
       {items &&
         items.map((item, key) => {
           const element = (
@@ -13,7 +13,7 @@ export default ({ items, className = '' }) => {
               key={key}
               className='margin-1-x'
               inverted={inverted}
-              {...item}
+              item={item}
             />
           )
           inverted = !inverted

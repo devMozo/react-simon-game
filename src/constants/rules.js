@@ -1,1 +1,1 @@
-export const ITEMS_LENGTH = 5
+export const ITEMS_LIMIT = 5

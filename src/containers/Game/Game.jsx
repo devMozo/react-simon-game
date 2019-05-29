@@ -2,6 +2,9 @@ import React from 'react'
 import posed from 'react-pose'
 import Loading from '../../components/Loading/Loading'
 import ListItems from '../../components/ListItems/ListItems'
+import ErrorFetch from '../../components/ErrorFetch/ErrorFetch'
+import { connect } from 'react-redux'
+import { fetchItems } from '../../actions/GameAction/index'
 
 const AnimationListItems = posed.div({
   hidden: {
@@ -16,7 +19,7 @@ const AnimationListItems = posed.div({
   }
 })
 
-const AnimationLoading = posed.div({
+const AnimationFade = posed.div({
   hidden: {
     opacity: 0
   },
@@ -25,40 +28,39 @@ const AnimationLoading = posed.div({
   }
 })
 
-export default class Game extends React.PureComponent {
-  constructor (props) {
-    super(props)
+class Game extends React.PureComponent {
+  getItems () {
+    this.props.fetchItems()
+  }
 
-    this.state = {
-      loading: false,
-      items: [
-        {
-          name: 'Poke'
-        },
-        {
-          name: 'Poke2'
-        },
-        {
-          name: 'Poke3'
-        },
-        {
-          name: 'Poke4'
-        },
-        {
-          name: 'Poke5'
-        }
-      ]
+  componentDidMount () {
+    this.getItems()
+  }
+
+  componentDidUpdate () {
+    const { items } = this.props
+
+    if (items.length > 0) {
+      this.setState({
+        loading: false
+      })
     }
   }
 
   render () {
-    const { loading, items } = this.state
+    const { items, errors, loading } = this.props
 
     return (
       <section className='Game'>
-        <AnimationLoading pose={loading ? 'visible' : 'hidden'}>
+        <AnimationFade
+          className='margin-4-top'
+          pose={errors.fetch ? 'visible' : 'hidden'}
+        >
+          <ErrorFetch onRetry={() => this.getItems()} />
+        </AnimationFade>
+        <AnimationFade pose={loading ? 'visible' : 'hidden'}>
           <Loading />
-        </AnimationLoading>
+        </AnimationFade>
         <AnimationListItems pose={loading ? 'hidden' : 'visible'}>
           <ListItems items={items} />
         </AnimationListItems>
@@ -66,3 +68,22 @@ export default class Game extends React.PureComponent {
     )
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    ...state.GameReducer
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchItems: () => {
+      dispatch(fetchItems())
+    }
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Game)

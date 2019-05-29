@@ -31,7 +31,7 @@ class Item extends React.PureComponent {
   }
 
   render () {
-    const { inverted, className = '', name = '' } = this.props
+    const { inverted, className = '', item } = this.props
     const { animated } = this.state
 
     return (
@@ -44,7 +44,10 @@ class Item extends React.PureComponent {
           <div className={`Item__shape ${animated ? 'animated' : ''}`} />
         </AnimationListItems>
         <AnimationName pose={animated ? 'displayed' : 'hidden'}>
-          <p className='Item__name font-bold'> {name} </p>
+          <p className='Item__name font-bold font-capitalize'>
+            {' '}
+            {item.getName()}{' '}
+          </p>
         </AnimationName>
       </li>
     )
@@ -54,7 +57,7 @@ class Item extends React.PureComponent {
 Item.propTypes = {
   inverted: PropTypes.bool,
   className: PropTypes.string,
-  name: PropTypes.string
+  item: PropTypes.object
 }
 
 export default Item

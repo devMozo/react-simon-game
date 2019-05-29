@@ -1,6 +1,7 @@
 import React from 'react'
 import posed from 'react-pose'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 
 const AnimationPose = posed.div({
   hidden: {
@@ -15,7 +16,7 @@ const AnimationPose = posed.div({
   }
 })
 
-export default class Home extends React.PureComponent {
+class Home extends React.PureComponent {
   constructor (props) {
     super(props)
 
@@ -31,6 +32,7 @@ export default class Home extends React.PureComponent {
   }
 
   render () {
+    const { fetchItems } = this.props
     const { isVisible } = this.state
 
     return (
@@ -41,11 +43,12 @@ export default class Home extends React.PureComponent {
             Welcome to the most complicated game that you've ever played{' '}
           </h2>
           <Link
-            onClick={() =>
+            onClick={() => {
               this.setState({
                 isVisible: false
               })
-            }
+              fetchItems()
+            }}
             to='/game'
             className='Home__button-start padding-1-y padding-2-x font-light'
           >
@@ -57,3 +60,16 @@ export default class Home extends React.PureComponent {
     )
   }
 }
+
+const mapStateToProps = state => {
+  return {}
+}
+
+const mapDispatchToProps = dispatch => {
+  return {}
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Home)

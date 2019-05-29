@@ -6,6 +6,7 @@
 @import './components/Loading/Loading.scss';
 @import './components/Item/Item.scss';
 @import './components/ListItems/ListItems.scss';
+@import './components//ErrorFetch/ErrorFetch.scss';
 
 // Containers
 @import './containers/Home/Home.scss';
@@ -57,6 +58,10 @@ p {
 
 li {
   list-style: none !important;
+}
+
+.font-capitalize {
+  text-transform: capitalize;
 }
 
 .font-black {
