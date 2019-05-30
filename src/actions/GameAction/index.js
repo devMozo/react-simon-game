@@ -1,4 +1,7 @@
-import PokeAPI from '../../api/PokeAPI/index'
+import PokeAPI from '../../api/PokeAPI'
+import BreweryAPI from '../../api/BreweryAPI'
+import BasketballAPI from '../../api/BasketballAPI'
+import RickAndMortyAPI from '../../api/RickAndMortyAPI'
 import { ITEMS_LIMIT } from '../../constants/rules'
 
 export const GAME_ACTION_RECEIVE_DATA = 'GAME_ACTION_RECEIVE_DATA'
@@ -14,9 +17,23 @@ export const fetchItems = () => {
     dispatch(isLoading(true))
     dispatch(restartErrors())
 
-    PokeAPI(ITEMS_LIMIT)
-      .then(data => {
-        dispatch(receiveDataItems(data))
+    Promise.all([
+      PokeAPI(ITEMS_LIMIT),
+      BreweryAPI(),
+      BasketballAPI(),
+      RickAndMortyAPI()
+    ])
+      .then(([pokeArray, breweryArray, basketballArray, rickAndMortyArray]) => {
+        const result = [
+          ...pokeArray,
+          ...breweryArray,
+          ...basketballArray,
+          ...rickAndMortyArray
+        ]
+          .sort(() => Math.random() - 0.5)
+          .slice(0, 5)
+
+        dispatch(receiveDataItems(result))
         dispatch(addToSequency())
       })
       .catch(err => dispatch(errorReceiveDataItems(err)))

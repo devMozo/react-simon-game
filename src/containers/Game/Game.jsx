@@ -118,7 +118,7 @@ class Game extends React.PureComponent {
   static getDerivedStateFromProps (props, state) {
     const { sequency } = props
 
-    if (sequency.length === 1) {
+    if (sequency.length === 1 && props.sequency[0]) {
       state = {
         activeItemID: props.sequency[0].getID(),
         freezed: true,
