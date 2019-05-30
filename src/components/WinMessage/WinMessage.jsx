@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import LinkButton from '../LinkButton/LinkButton'
 
 export default ({ location }) => {
   return (
@@ -8,18 +8,16 @@ export default ({ location }) => {
         {' '}
         Congratulations! You're the chosen one!{' '}
       </p>
-      <Link
+      <LinkButton
         onClick={() => location.reload()}
-        className='WinMessage__button--main margin-1-all padding-1-y padding-2-x font-light'
-      >
-        Yes, I know, let me try again
-      </Link>
-      <Link
+        className='margin-1-all padding-1-y padding-2-x font-light'
+        message={'Yes, I know, let me try again'}
+      />
+      <LinkButton
         to={'/'}
-        className='WinMessage__button--secondary margin-1-all padding-1-y padding-2-x font-light'
-      >
-        Go Home
-      </Link>
+        className='margin-1-all padding-1-y padding-2-x font-light'
+        message={'Go Home'}
+      />
     </section>
   )
 }

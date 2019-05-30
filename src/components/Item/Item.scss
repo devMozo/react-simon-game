@@ -1,55 +1,82 @@
 .Item {
-  $sizeWidth: 100px;
-  $sizeWidthSide: $sizeWidth * 2;
+  @mixin item-styling($sizeWidth) {
+    $sizeWidthSide: $sizeWidth * 2;
 
-  &,
-  &--inverted {
-    width: $sizeWidthSide;
-    display: inline-block;
-    vertical-align: middle;
-    position: relative;
-    cursor: pointer;
-
-    & .Item__shape {
-      width: 0;
-      height: 0;
-    }
-
-    .Item__name {
+    &,
+    &--inverted {
       width: $sizeWidthSide;
-      text-align: center;
-      color: white;
-      position: absolute;
-      top: -$sizeWidth;
-    }
-  }
+      display: inline-block;
+      vertical-align: middle;
+      position: relative;
+      cursor: pointer;
 
-  & .Item__shape {
-    border-left: $sizeWidth solid transparent !important;
-    border-right: $sizeWidth solid transparent !important;
-    border-top: $sizeWidthSide solid;
-    transition: 0.3s;
+      & .Item__shape {
+        width: 0;
+        height: 0;
+      }
 
-    &.animated {
-      box-shadow: 0 -150px 100px -70px;
-    }
-  }
-
-  &--inverted {
-    .Item__shape {
-      border-left: $sizeWidth solid transparent !important;
-      border-right: $sizeWidth solid transparent !important;
-      border-bottom: $sizeWidthSide solid;
-      transition: 0.3s;
-
-      &.animated {
-        box-shadow: 0 150px 100px -70px;
+      .Item__name {
+        width: $sizeWidthSide;
+        text-align: center;
+        color: white;
+        position: absolute;
+        top: -$sizeWidth;
       }
     }
 
-    .Item__name {
-      top: auto;
-      bottom: -$sizeWidth;
+    & .Item__shape {
+      border-left: $sizeWidth solid transparent !important;
+      border-right: $sizeWidth solid transparent !important;
+      border-top: $sizeWidthSide solid;
+      transition: 0.3s;
+
+      &.animated {
+        box-shadow: 0 -150px 100px -70px;
+      }
     }
+
+    &--inverted {
+      .Item__shape {
+        border-left: $sizeWidth solid transparent !important;
+        border-right: $sizeWidth solid transparent !important;
+        border-bottom: $sizeWidthSide solid;
+        transition: 0.3s;
+
+        &.animated {
+          box-shadow: 0 150px 100px -70px;
+        }
+      }
+
+      .Item__name {
+        top: auto;
+        bottom: -$sizeWidth;
+      }
+    }
+  }
+
+  @include item-styling($sizeWidth: 100px);
+
+  @media only screen and (max-width: $break-large) {
+    @include item-styling($sizeWidth: 70px);
+  }
+
+  @media only screen and (max-width: $break-medium) {
+    @include item-styling($sizeWidth: 50px);
+
+    .Item__name {
+      font-size: 12px;
+    }
+
+    &--inverted {
+      .Item__name {
+        bottom: -60px;
+      }
+    }
+  }
+
+  @media only screen and (max-width: $break-small) {
+    $smallSizeWidth: 20px;
+
+    @include item-styling($smallSizeWidth);
   }
 }

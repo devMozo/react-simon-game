@@ -1,6 +1,6 @@
 import React from 'react'
 import posed from 'react-pose'
-import { Link } from 'react-router-dom'
+import LinkButton from '../../components/LinkButton/LinkButton'
 import { connect } from 'react-redux'
 
 const AnimationPose = posed.div({
@@ -32,7 +32,6 @@ class Home extends React.PureComponent {
   }
 
   render () {
-    const { fetchItems } = this.props
     const { isVisible } = this.state
 
     return (
@@ -42,19 +41,17 @@ class Home extends React.PureComponent {
             {' '}
             Welcome to the most complicated game that you've ever played{' '}
           </h2>
-          <Link
+
+          <LinkButton
             onClick={() => {
               this.setState({
                 isVisible: false
               })
-              fetchItems()
             }}
             to='/game'
-            className='Home__button-start padding-1-y padding-2-x font-light'
-          >
-            {' '}
-            Are you ready?{' '}
-          </Link>
+            className='padding-1-y padding-2-x font-light'
+            message={'Are you ready?'}
+          />
         </AnimationPose>
       </section>
     )

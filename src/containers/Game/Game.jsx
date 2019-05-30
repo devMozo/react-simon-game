@@ -183,6 +183,9 @@ class Game extends React.PureComponent {
             Your turn{' '}
           </p>
         )}
+        {!done && !userTime && (
+          <p className='Game__help margin-3-top font-extra-light'> My turn </p>
+        )}
         {done && win && <WinMessage location={location} />}
         {done && !win && <LostMessage location={location} />}
       </section>

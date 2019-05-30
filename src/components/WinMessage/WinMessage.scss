@@ -4,31 +4,9 @@
     color: white;
   }
 
-  .WinMessage__button {
-    &--main {
-      background-color: white;
-      border: 1px solid white;
-      color: #111;
-      outline: 0;
-      cursor: pointer;
-      transition: 0.3s;
-
-      &:hover {
-        opacity: 0.6;
-      }
-    }
-
-    &--secondary {
-      box-sizing: border-box;
-      border: 1px solid white;
-      color: white;
-      outline: 0;
-      cursor: pointer;
-      transition: 0.3s;
-
-      &:hover {
-        opacity: 0.6;
-      }
+  @media only screen and (max-width: $break-small) {
+    .WinMessage__paragraph {
+      margin: auto 20px;
     }
   }
 }

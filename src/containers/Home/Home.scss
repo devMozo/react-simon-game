@@ -9,16 +9,9 @@
     color: white;
   }
 
-  .Home__button-start {
-    background-color: white;
-    border: 1px solid white;
-    color: #111;
-    outline: 0;
-    cursor: pointer;
-    transition: 0.3s;
-
-    &:hover {
-      opacity: 0.6;
+  @media only screen and (max-width: $break-small) {
+    .Home__title {
+      margin: auto 20px;
     }
   }
 }

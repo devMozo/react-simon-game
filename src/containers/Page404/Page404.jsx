@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import LinkButton from '../../components/LinkButton/LinkButton'
 
 export default () => {
   return (
@@ -9,12 +9,11 @@ export default () => {
         Sorry, you are in the wrong place, but anyway... do you wanna play a
         game?{' '}
       </p>
-      <Link
+      <LinkButton
         to={'/'}
-        className='Page404__button--main margin-1-all padding-1-y padding-2-x font-light'
-      >
-        Yes! Let me see!
-      </Link>
+        className='margin-1-all padding-1-y padding-2-x font-light'
+        message={'Yes! Let me see!'}
+      />
     </section>
   )
 }
