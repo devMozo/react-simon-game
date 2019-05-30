@@ -1,0 +1,26 @@
+.Page404 {
+  text-align: center;
+  background-color: black;
+  height: 100vh;
+  overflow: hidden;
+
+  .Page404__paragraph {
+    font-size: 20px;
+    color: white;
+  }
+
+  .Page404__button {
+    &--main {
+      background-color: white;
+      border: 1px solid white;
+      color: #111;
+      outline: 0;
+      cursor: pointer;
+      transition: 0.3s;
+
+      &:hover {
+        opacity: 0.6;
+      }
+    }
+  }
+}
