@@ -6,11 +6,14 @@ import ErrorFetch from '../../components/ErrorFetch/ErrorFetch'
 import { connect } from 'react-redux'
 import {
   fetchItems,
-  sequencyAdd,
-  gameWin
+  addToSequency,
+  gameWin,
+  gameOver
 } from '../../actions/GameAction/index'
 import GameContext from '../../contexts/GameContext'
 import { TIME_PER_ROUND, MAX_ROUNDS } from '../../constants/rules'
+import LostMessage from '../../components/LostMessage/LostMessage'
+import WinMessage from '../../components/WinMessage/WinMessage'
 
 const STOP_ANIMATION = 'STOP_ANIMATION'
 const AnimationListItems = posed.div({
@@ -41,7 +44,8 @@ class Game extends React.PureComponent {
     this.state = {
       activeItemID: undefined,
       freezed: false,
-      userTime: false
+      userTime: false,
+      userSequency: []
     }
   }
 
@@ -50,6 +54,7 @@ class Game extends React.PureComponent {
     let i = 0
 
     while (i < sequency.length) {
+      // If the last item was the same as the current item
       if (i > 0 && sequency[i].getID() === sequency[i - 1].getID()) {
         yield STOP_ANIMATION
       }
@@ -60,7 +65,7 @@ class Game extends React.PureComponent {
   }
 
   startRound () {
-    const { sequencyAdd } = this.props
+    const { addToSequency } = this.props
     const items = this.generatorItems()
 
     let round = setInterval(() => {
@@ -72,7 +77,7 @@ class Game extends React.PureComponent {
         })
       } else {
         clearInterval(round)
-        sequencyAdd()
+        addToSequency()
         this.setState({
           activeItemID: undefined,
           freezed: false,
@@ -86,15 +91,54 @@ class Game extends React.PureComponent {
     this.props.fetchItems()
   }
 
+  onItemClick (item) {
+    const { sequency, gameOver } = this.props
+    const { userTime, userSequency } = this.state
+
+    if (userTime) {
+      // Get every ID of the selected items by the user
+      const userSequencyTemp = [...userSequency, item]
+      const mappingIdUserSequency = userSequencyTemp.map(item => item.getID())
+      // Get every ID of the sequency until the position of the userSequency
+      const mappingIdSequency = sequency.map(item => item.getID())
+
+      if (mappingIdSequency.join().startsWith(mappingIdUserSequency.join())) {
+        const isTheLast = userSequencyTemp.length + 1 === sequency.length
+
+        this.setState({
+          userTime: !isTheLast,
+          userSequency: isTheLast ? [] : userSequencyTemp
+        })
+      } else {
+        gameOver()
+      }
+    }
+  }
+
+  static getDerivedStateFromProps (props, state) {
+    const { sequency } = props
+
+    if (sequency.length === 1) {
+      state = {
+        activeItemID: props.sequency[0].getID(),
+        freezed: true,
+        userTime: false,
+        userSequency: []
+      }
+    }
+
+    return state
+  }
+
   componentDidMount () {
     this.getItems()
   }
 
   componentDidUpdate () {
-    const { done, items, sequency, gameWin } = this.props
+    const { done, sequency, gameWin } = this.props
     const { freezed, userTime } = this.state
 
-    if (!done && !freezed && !userTime && items.length > 0) {
+    if (!done && !freezed && !userTime) {
       this.setState({
         freezed: true
       })
@@ -108,7 +152,7 @@ class Game extends React.PureComponent {
   }
 
   render () {
-    const { items, errors, loading } = this.props
+    const { items, errors, loading, done, win, location } = this.props
     const { activeItemID, freezed, userTime } = this.state
 
     return (
@@ -122,22 +166,25 @@ class Game extends React.PureComponent {
         <AnimationFade pose={loading ? 'visible' : 'hidden'}>
           <Loading />
         </AnimationFade>
-        <AnimationListItems pose={loading ? 'hidden' : 'visible'}>
+        <AnimationListItems pose={loading || done ? 'hidden' : 'visible'}>
           <GameContext.Provider
             value={{
               activeItemID,
-              freezed
+              freezed,
+              onItemClick: item => this.onItemClick(item)
             }}
           >
             <ListItems items={items} />
           </GameContext.Provider>
         </AnimationListItems>
-        {userTime && (
+        {!done && userTime && (
           <p className='Game__help margin-3-top font-extra-light'>
             {' '}
             Your turn{' '}
           </p>
         )}
+        {done && win && <WinMessage location={location} />}
+        {done && !win && <LostMessage location={location} />}
       </section>
     )
   }
@@ -154,11 +201,14 @@ const mapDispatchToProps = dispatch => {
     fetchItems: () => {
       dispatch(fetchItems())
     },
-    sequencyAdd: () => {
-      dispatch(sequencyAdd())
+    addToSequency: () => {
+      dispatch(addToSequency())
     },
     gameWin: () => {
       dispatch(gameWin())
+    },
+    gameOver: () => {
+      dispatch(gameOver())
     }
   }
 }

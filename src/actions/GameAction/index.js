@@ -3,7 +3,7 @@ import { ITEMS_LIMIT } from '../../constants/rules'
 
 export const GAME_ACTION_RECEIVE_DATA = 'GAME_ACTION_RECEIVE_DATA'
 export const GAME_ACTION_ERROR_RECEIVE_DATA = 'GAME_ACTION_ERROR_RECEIVE_DATA'
-export const GAME_ACTION_SEQUENCY_ADD = 'GAME_ACTION_SEQUENCY_ADD'
+export const GAME_ACTION_ADD_TO_SEQUENCY = 'GAME_ACTION_ADD_TO_SEQUENCY'
 export const GAME_ACTION_GAME_OVER = 'GAME_ACTION_GAME_OVER'
 export const GAME_ACTION_WIN = 'GAME_ACTION_WIN'
 export const GAME_ACTION_RESTART_ERRORS = 'GAME_ACTION_RESTART_ERRORS'
@@ -17,7 +17,7 @@ export const fetchItems = () => {
     PokeAPI(ITEMS_LIMIT)
       .then(data => {
         dispatch(receiveDataItems(data))
-        dispatch(sequencyAdd())
+        dispatch(addToSequency())
       })
       .catch(err => dispatch(errorReceiveDataItems(err)))
   }
@@ -42,8 +42,8 @@ export const isLoading = status => ({
   payload: status
 })
 
-export const sequencyAdd = () => ({
-  type: GAME_ACTION_SEQUENCY_ADD
+export const addToSequency = () => ({
+  type: GAME_ACTION_ADD_TO_SEQUENCY
 })
 
 export const gameOver = () => ({

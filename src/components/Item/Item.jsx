@@ -37,13 +37,15 @@ class Item extends React.PureComponent {
 
     return (
       <GameContext.Consumer>
-        {({ activeItemID, freezed }) => {
-          const isAnimated = animated || activeItemID === item.getID()
+        {({ activeItemID, freezed, onItemClick }) => {
+          const isAnimated =
+            (!freezed && animated) || activeItemID === item.getID()
 
           return (
             <li
-              onMouseOver={() => !freezed && this.setState({ animated: true })}
-              onMouseOut={() => !freezed && this.setState({ animated: false })}
+              onMouseOver={() => this.setState({ animated: true })}
+              onMouseOut={() => this.setState({ animated: false })}
+              onClick={() => onItemClick(item)}
               className={`Item${inverted ? '--inverted' : ''} ${className}`}
             >
               <AnimationListItems pose={isAnimated ? 'zoomIn' : 'normal'}>

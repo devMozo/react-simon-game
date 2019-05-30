@@ -1,6 +1,6 @@
 import {
   GAME_ACTION_RECEIVE_DATA,
-  GAME_ACTION_SEQUENCY_ADD,
+  GAME_ACTION_ADD_TO_SEQUENCY,
   GAME_ACTION_GAME_OVER,
   GAME_ACTION_WIN,
   GAME_ACTION_ERROR_RECEIVE_DATA,
@@ -39,7 +39,7 @@ export default (state = initState, action) => {
         }
       }
       break
-    case GAME_ACTION_SEQUENCY_ADD:
+    case GAME_ACTION_ADD_TO_SEQUENCY:
       const limit =
         state.items.length === ITEMS_LIMIT ? ITEMS_LIMIT : state.items.length
       const randomPosition = Math.floor(Math.random() * limit)
