@@ -2,7 +2,7 @@
 The player has to pick the correct items in the order shown
 
 ## Introduction
-Welcome to the Letgo Fullstack technical test!
+Welcome to the Simon Game technical test!
 
 For this test we want to see your skills and knowledge by developing a small and fun game: **Sequence memory game**.
 
